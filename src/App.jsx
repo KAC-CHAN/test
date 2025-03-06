@@ -1,16 +1,17 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 
 function App() {
   const [walletBalance, setWalletBalance] = useState(0);
   const [isScraping, setIsScraping] = useState(false);
   const [logs, setLogs] = useState([]);
-  const bitcoinValues = [0.003, 0.0045, 0.0067, 0.0021, 0.0049, 0.0053];
+  
+  // Memoize bitcoin values to prevent recreation on every render
+  const bitcoinValues = useMemo(() => [0.003, 0.0045, 0.0067, 0.0021, 0.0049, 0.0053], []);
 
   useEffect(() => {
     let interval;
     if (isScraping) {
       interval = setInterval(() => {
-        // 25% chance to find bitcoin
         if (Math.random() < 0.25) {
           const foundBtc = bitcoinValues[Math.floor(Math.random() * bitcoinValues.length)];
           setWalletBalance(prev => prev + foundBtc);
@@ -21,7 +22,7 @@ function App() {
       }, 2000);
     }
     return () => clearInterval(interval);
-  }, [isScraping]);
+  }, [isScraping, bitcoinValues]);
 
   return (
     <div className="container">
