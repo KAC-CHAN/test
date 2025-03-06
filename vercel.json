@@ -1,25 +1,14 @@
 {
-  "version": 2,
   "builds": [
     {
       "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "build"
-      }
+      "use": "@vercel/static-build"
     }
   ],
   "routes": [
     {
       "src": "/static/(.*)",
       "dest": "/static/$1"
-    },
-    {
-      "src": "/(.*)",
-      "desc": "Main page",
-      "headers": {
-        "Cache-Control": "s-maxage=0"
-      }
     },
     {
       "src": "/(.*)",
