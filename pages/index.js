@@ -33,93 +33,85 @@ export default function Home() {
   return (
     <div className="min-h-screen mining-bg text-white flex items-center justify-center p-4">
       <Head>
-        <title>Bitcoin Miner Pro</title>
+        <title>Neon Bitcoin Miner</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
 
-      <main className="w-full max-w-md z-10">
-        <div className="bg-black/40 backdrop-blur-lg rounded-2xl shadow-2xl p-6 border border-white/10">
-          <div className="flex items-center justify-center mb-8">
-            <div className="relative mining-rays">
-              <div className="bitcoin-animation text-6xl bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                ₿
-              </div>
-            </div>
+      <main className="w-full max-w-2xl text-center">
+        {/* Animated Particles */}
+        <div className="absolute inset-0 pointer-events-none">
+          {[...Array(20)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute w-2 h-2 bg-cyan-400 rounded-full opacity-50 particle"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 2}s`
+              }}
+            />
+          ))}
+        </div>
+
+        <div className="space-y-8">
+          {/* Bitcoin Icon */}
+          <div className="bitcoin-pulse text-8xl text-cyan-400 glow-text">
+            ₿
           </div>
 
-          <div className="bg-gradient-to-br from-blue-900/50 to-purple-900/50 rounded-xl p-6 mb-8 border border-white/10">
-            <div className="text-center">
-              <p className="text-sm text-blue-300 mb-2">Total Mined</p>
-              <p className="text-5xl font-bold text-gradient bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                {wallet.toFixed(4)}
-                <span className="text-2xl ml-2">BTC</span>
-              </p>
-              <p className="text-sm text-blue-300 mt-2">
-                ≈ ${(wallet * 45000).toLocaleString()}
-              </p>
+          {/* Wallet Balance */}
+          <div className="space-y-4">
+            <h2 className="text-2xl font-bold text-purple-300">
+              Total Mined Bitcoin
+            </h2>
+            <div className="text-6xl font-bold text-transparent bg-gradient-to-r from-cyan-400 to-pink-400 bg-clip-text glow-text">
+              {wallet.toFixed(4)} BTC
             </div>
+            <p className="text-xl text-cyan-200">
+              ≈ ${(wallet * 45000).toLocaleString()}
+            </p>
           </div>
 
+          {/* Mining Button */}
           <button
             onClick={simulateScraping}
             disabled={isScraping}
-            className="w-full py-5 rounded-xl font-bold text-white text-lg relative
-              bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700
-              transition-all duration-300 button-glow"
+            className="mining-button mx-auto px-12 py-4 rounded-full text-xl font-bold text-black hover:scale-105 transition-transform"
           >
             {isScraping ? (
-              <div className="flex items-center justify-center space-x-3">
-                <div className="w-4 h-4 border-2 border-white rounded-full animate-spin" />
-                <span>Mining in Progress...</span>
+              <div className="flex items-center justify-center gap-3">
+                <div className="w-6 h-6 border-4 border-black rounded-full animate-spin" />
+                <span>Mining...</span>
               </div>
             ) : (
-              'Start Bitcoin Mining'
+              '🚀 Start Mining Now'
             )}
           </button>
 
-          <div className="mt-8">
-            <h2 className="text-lg font-semibold text-blue-300 mb-4 flex items-center">
-              <span className="mr-2 text-purple-400">📜</span>
-              Mining History
-            </h2>
-            <div className="space-y-3 max-h-64 overflow-y-auto pr-2">
+          {/* Transaction History */}
+          <div className="bg-black/30 backdrop-blur-lg rounded-xl p-6 shadow-2xl">
+            <h3 className="text-xl font-bold text-pink-300 mb-4">
+              ⚡ Recent Transactions
+            </h3>
+            <div className="space-y-3 max-h-64 overflow-y-auto">
               {history.map((item, index) => (
-                <div 
+                <div
                   key={index}
-                  className="transaction-pop bg-black/30 p-4 rounded-lg flex justify-between items-center
-                    border border-white/10 hover:bg-white/5 transition-colors"
+                  className="bg-gradient-to-r from-cyan-500/20 to-pink-500/20 p-4 rounded-lg flex justify-between items-center animate-fade-in"
                 >
-                  <div className="flex items-center space-x-3">
-                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                    <span className="text-gray-300 text-sm">{item.timestamp}</span>
-                  </div>
-                  <span className="text-green-400 font-medium">
+                  <span className="text-cyan-300">{item.timestamp}</span>
+                  <span className="text-pink-300 font-bold">
                     +{item.amount.toFixed(4)} BTC
                   </span>
                 </div>
               ))}
               {history.length === 0 && (
-                <div className="text-center text-gray-500 py-4 italic">
-                  No mining results yet
+                <div className="text-cyan-200 py-4">
+                  No transactions yet - start mining!
                 </div>
               )}
             </div>
           </div>
-        </div>
-
-        {/* Animated background elements */}
-        <div className="absolute inset-0 pointer-events-none">
-          {[...Array(20)].map((_, i) => (
-            <div 
-              key={i}
-              className="absolute w-1 h-1 bg-white/10 rounded-full"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animation: `twinkle ${2 + Math.random() * 3}s infinite`
-              }}
-            />
-          ))}
         </div>
       </main>
     </div>
