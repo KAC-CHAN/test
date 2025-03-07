@@ -2,81 +2,61 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Mining background effect */
+/* Vibrant gradient background */
 .mining-bg {
-  background: linear-gradient(45deg, #0a0e24, #1a1b3a);
-  position: relative;
-  overflow: hidden;
-}
-
-.mining-bg::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: 
-    radial-gradient(circle at 20% 30%, rgba(0, 102, 255, 0.1) 0%, transparent 30%),
-    radial-gradient(circle at 80% 70%, rgba(128, 0, 255, 0.1) 0%, transparent 30%);
-  animation: bg-pulse 8s infinite;
-}
-
-@keyframes bg-pulse {
-  0%, 100% { opacity: 0.8; }
-  50% { opacity: 0.4; }
-}
-
-/* Bitcoin animation */
-@keyframes bitcoin-spin {
-  0% { transform: rotateY(0deg); }
-  100% { transform: rotateY(360deg); }
-}
-
-.bitcoin-animation {
-  animation: bitcoin-spin 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-}
-
-/* Mining ray effect */
-.mining-rays {
-  position: relative;
-  overflow: hidden;
-}
-
-.mining-rays::after {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
   background: linear-gradient(45deg, 
-    transparent 25%,
-    rgba(0, 102, 255, 0.2) 45%,
-    transparent 70%
+    #0f0c29, 
+    #2b0a3a, 
+    #4a044e
   );
-  animation: mining-ray 2s linear infinite;
+  background-size: 400% 400%;
+  animation: gradient-shift 15s ease infinite;
 }
 
-@keyframes mining-ray {
-  0% { transform: translateX(-50%) rotate(45deg); }
-  100% { transform: translateX(50%) rotate(45deg); }
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-/* Button glow */
-.button-glow {
-  box-shadow: 0 0 30px rgba(0, 102, 255, 0.4);
-  animation: button-pulse 2s ease-in-out infinite;
+/* Bitcoin pulse animation */
+@keyframes bitcoin-pulse {
+  0% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(1.2) rotate(10deg); }
+  100% { transform: scale(1) rotate(0deg); }
 }
 
-@keyframes button-pulse {
-  0%, 100% { box-shadow: 0 0 30px rgba(0, 102, 255, 0.4); }
-  50% { box-shadow: 0 0 50px rgba(0, 102, 255, 0.6); }
+.bitcoin-pulse {
+  animation: bitcoin-pulse 3s ease-in-out infinite;
 }
 
-/* Transaction animation */
-@keyframes transaction-pop {
-  0% { transform: scale(0.9); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
+/* Glowing text effect */
+.glow-text {
+  text-shadow: 0 0 15px rgba(82, 255, 226, 0.7);
 }
 
-.transaction-pop {
-  animation: transaction-pop 0.3s ease-out;
+/* Particle animation */
+@keyframes particle-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+.particle {
+  animation: particle-float 4s ease-in-out infinite;
+}
+
+/* Button animations */
+.mining-button {
+  background: linear-gradient(45deg, 
+    #ff00ff, 
+    #00ffff, 
+    #ff00ff
+  );
+  background-size: 200% 200%;
+  animation: button-glow 4s linear infinite;
+}
+
+@keyframes button-glow {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
 }
